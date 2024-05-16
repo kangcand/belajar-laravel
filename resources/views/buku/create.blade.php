@@ -81,9 +81,9 @@
                         </div>
                         <div class="mb-2">
                             <label for="">Genre</label>
-                            <select name="genre[]" class="form-select"" multiple>
-                                 @foreach ($genre as $data)
-                                    <option value=" {{$data->id}}">{{$data->nama_genre}}
+                            <select name="genre[]" class="form-select js-example-basic-multiple" multiple="multiple">
+                                @foreach ($genre as $data)
+                                <option value=" {{$data->id}}">{{$data->nama_genre}}
                                 </option>
                                 @endforeach
                             </select>
