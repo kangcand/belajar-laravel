@@ -11,6 +11,7 @@ class Penulis extends Model
 
     public $fillable = ['nama_penulis', 'bio'];
     public $visible = ['nama_penulis', 'bio'];
+    public $timestamps = true;
 
     // membuat relasi one to Many ke Model Buku
     public function buku()

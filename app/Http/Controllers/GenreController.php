@@ -12,7 +12,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $genres = Genre::latest()->get();
+        return view('genre.index', compact('genres'));
     }
 
     /**
@@ -23,18 +24,26 @@ class GenreController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'nama_genre' => 'required|unique:genres',
+        ]);
+
+        $genre = new Genre();
+        $genre->nama_genre = $request->nama_genre;
+        $genre->save();
+
+        return redirect()->route('genre.index')
+            ->with('success', 'Data berhasil di tambahkan');
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Genre $genre)
+    public function show($id)
     {
         //
     }
@@ -42,24 +51,35 @@ class GenreController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Genre $genre)
+    public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Genre $genre)
+    public function update(Request $request, $id)
     {
-        //
+        $validated = $request->validate([
+            'nama_genre' => 'required|unique:genres',
+        ]);
+
+        $genre = Genre::findOrFail($id);
+        $genre->nama_genre = $request->nama_genre;
+        $genre->save();
+
+        return redirect()->route('genre.index')
+            ->with('success', 'Data berhasil di ubah');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Genre $genre)
+    public function destroy($id)
     {
-        //
+        $genre = Genre::findOrFail($id);
+        $genre->delete();
+        return redirect()->route('genre.index')
+            ->with('success', 'Data berhasil di hapus');
+
     }
 }
