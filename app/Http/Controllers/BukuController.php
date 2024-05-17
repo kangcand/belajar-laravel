@@ -72,6 +72,7 @@ class BukuController extends Controller
         $genre = Genre::all();
         $penulis = Penulis::all();
         $selectGenre = $buku->genre->pluck('id')->toArray();
+        // dd($selectGenre);
         return view('buku.edit', compact('buku', 'genre', 'penulis', 'selectGenre'));
 
     }

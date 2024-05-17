@@ -1,15 +1,12 @@
 <?php
 // import controller
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\MyController;
 use App\Http\Controllers\PenulisController;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('film', function () {
     $film = App\Models\Film::all();
@@ -33,7 +30,13 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-// route crud
-Route::resource('penulis', PenulisController::class);
-Route::resource('genre', GenreController::class);
-Route::resource('buku', BukuController::class);
+// route admin
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+    Route::resource('penulis', PenulisController::class);
+    Route::resource('genre', GenreController::class);
+    Route::resource('buku', BukuController::class);
+});
+
+// Route guest(tamu / pengunjung)
+Route::get('/', [FrontController::class, 'buku']);
+Route::get('buku/{id}', [FrontController::class, 'detailBuku']);

@@ -89,8 +89,7 @@
                         </div>
                         <div class="mb-2">
                             <label for="genre">Genre</label>
-                            <select name="genre[]" class="form-select js-example-basic-multiple" multiple="multiple"
-                                multiple>
+                            <select name="genre[]" class="form-select select-multiple" multiple="multiple" multiple>
                                 @foreach ($genre as $data)
                                 <option value="{{ $data->id }}" {{ in_array($data->id, $selectGenre) ? 'selected' : ''
                                     }}>{{ $data->nama_genre }}
